@@ -2,12 +2,12 @@
     <div class="app">
         <h2>vue音视频播放器</h2>
         <aPlayer :playerOptions = "aOption" />
-        <vPlayer :options = "vOption" />
+        <vPlayer :playerOptions = "vOption" />
     </div>
 </template>
 <script>
-import aPlayer from './components/aPlayer/aPlayer.vue'
-import vPlayer from './components/vPlayer/vPlayer.vue'
+import aPlayer from './components/aPlayer.vue'
+import vPlayer from './components/vPlayer.vue'
 export default {
     components: { aPlayer, vPlayer },
     data(){
@@ -20,7 +20,8 @@ export default {
                 isLoop: false,
                 poster: 'https://oimdztrab.qnssl.com/Frp4SyVe5PosdkUKRaE-krjK7B5z',
                 title: '音频播放器',
-                description: ''
+                description: '',
+                controls: 'progress,timer'
             },
             vOption: {
                 type: "application/x-mpegURL",
@@ -36,3 +37,10 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+.player{
+    width: 400px;
+    margin: 0 auto;
+    min-height: 30px;
+}
+</style>
