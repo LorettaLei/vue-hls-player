@@ -1,11 +1,15 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
+const entrys = {};
+const components = require('./components.json');
+Object.keys(components).forEach(item => {
+    entrys[item] = components[item];
+})
 const config = {
     devtool: '#source-map',
-    entry: './src/player.js',
+    entry: entrys,
     output: {
-        filename: 'vue-hls-player.js',
+        filename: '[name].js',
         path: path.join(__dirname, 'lib'),
         publicPath: '/lib/',
         // library: '',

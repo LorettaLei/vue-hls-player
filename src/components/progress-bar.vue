@@ -78,7 +78,7 @@ export default {
     }
     &--played{
         z-index: 3;
-        background: linear-gradient(180deg, rgba(108, 211, 255, 1) 0%, rgba(58, 167, 255, 1) 100%);
+        background: linear-gradient(180deg, rgba(108, 211, 255, 0.5) 0%, rgba(58, 167, 255, 0.8) 100%);;
     }
     &--length{
         width: 100%;

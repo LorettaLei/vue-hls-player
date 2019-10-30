@@ -6,10 +6,10 @@
     </div>
 </template>
 <script>
-import aPlayer from './components/aPlayer.vue'
-import vPlayer from './components/vPlayer.vue'
+// import aPlayer from './components/aPlayer.vue'
+// import vPlayer from './components/vPlayer.vue'
 export default {
-    components: { aPlayer, vPlayer },
+    // components: { aPlayer, vPlayer },
     data(){
         return {
             aOption: {
@@ -34,10 +34,14 @@ export default {
                 title: '视频播放器'
             },
         }
+    },
+    created(){
+        // console.log(vueHlsPlayer)
     }
 }
 </script>
 <style lang="scss">
+@import './styles/player.scss';
 .player{
     width: 400px;
     margin: 0 auto;

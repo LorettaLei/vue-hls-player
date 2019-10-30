@@ -1,25 +1,9 @@
-const path = require('path')
+const HTMLPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
 const config = {
-    devtool: '#source-map',
-    entry: './src/player.js',
-    output: {
-        filename: 'vue-hls-player.js',
-        path: path.join(__dirname, 'lib'),
-        publicPath: '/lib/',
-        // library: '',
-        libraryTarget: 'umd',
-        umdNamedDefine: true
-    },
-    externals: {
-        'hls.js': {
-          amd: 'hls.js',
-          commonjs: 'hls.js',
-          commonjs2: 'hls.js',
-          root: 'Hls'
-        }
-    },
+    devtool: '#cheap-module-eval-source-map',
+    entry: "./src/index.js",
     module: {
         rules: [
             {
@@ -53,8 +37,32 @@ const config = {
             }
         ]
     },
+    devServer: {
+        port: 9000,
+        host: '0.0.0.0',
+        overlay: {
+            errors: true
+        },
+        open: true,
+        hot: true,
+        compress: true
+    },
     plugins: [
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new HTMLPlugin({
+            filename: './index.html',
+            template: './src/index.html',
+            inject: true,
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true,
+                minifyCSS: true
+            },
+            chunksSortMode: 'dependency'
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
     ]
 }
 module.exports = config

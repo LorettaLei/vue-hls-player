@@ -1,22 +1,24 @@
 {
-  "name": "vue-player",
+  "name": "vue-hls-player",
   "version": "1.0.0",
-  "description": "hls player,audio video",
-  "main": "index.js",
+  "description": "hls player,audio,video",
+  "main": "dist/vue-hls-player.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.js"
+    "build": "webpack --mode production --config webpack.config.js && webpack --mode production --config webpack.components.js",
+    "dev": "webpack-dev-server --mode development --config webpack.dev.js"
   },
   "keywords": [
-    "hls",
-    "vue",
-    "audio",
-    "video"
+    "hls player",
+    "vue player",
+    "vue hls player",
+    "vue hls",
+    "vue video player",
+    "vue audio player"
   ],
-  "homepage": "https://github.com/LorettaXiong/vue-player",
+  "homepage": "https://github.com/LorettaLei/vue-player",
   "bugs": {
-    "url": "https://github.com/LorettaXiong/vue-player/issues"
+    "url": "https://github.com/LorettaLei/vue-player/issues"
   },
   "author": "loretta_lei",
   "license": "ISC",

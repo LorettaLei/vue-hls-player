@@ -103,7 +103,6 @@ export default {
             this.media.addEventListener('seeking', this.onMediaSeeking)
             this.media.addEventListener('seeked', this.onMediaSeeking)
             this.media.addEventListener('timeupdate', this.onMediaSeeking)
-            this.media.addEventListener('volumechange', this.onMediaVolumeChange)
             this.media.addEventListener('ended', this.onMediaEnded)
         },
         togglePlay(){
@@ -139,11 +138,6 @@ export default {
             this.playedTime = BASE.turnTime(parseInt(this.media.currentTime))
             this.$refs.progress.initProgress(this.loadedLength,this.playedLength,this.dataLength)
         },
-        onMediaVolumeChange(v){
-            if(v){
-                this.media.currentTime = parseInt(v * this.dataLength);
-            }
-        },
         onMediaChangeProgress(v){
             this.media.currentTime = parseInt(v * this.dataLength);
         },
@@ -156,100 +150,6 @@ export default {
 }
 </script>
 <style lang="scss">
-.player{
-    &__controls{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        &--progress{
-            flex: 1;
-        }
-        &--current,&--durration{
-            width: 12%;
-            min-width: 58px;
-            font-size: 14px;
-            color: rgba($color: #fff, $alpha: 0.8);
-            line-height: 1;
-            padding: 0 12px;
-            user-select:none;
-        }
-        &--current{
-            padding-left: 6px;
-            text-align: right;
-        }
-        &--durration{
-            padding-right: 6px;
-            text-align: left;
-        }
-        &--btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 25px;
-            border: 1px solid rgba($color: #fff, $alpha: 0.8);
-            position: relative;
-            cursor: pointer;
-            .btn-play {
-                width: 10px;
-                height: 14px;
-                border: 2px solid rgba($color: #fff, $alpha: 0.8);
-                border-width: 0 2px;
-                position: absolute;
-                top: 7px;
-                left: 9px;
-                &.stop {
-                    width: 0;
-                    height: 0;
-                    border: 2px solid rgba($color: #fff, $alpha: 0.8);
-                    border-width: 7px 10px;
-                    border-color: transparent transparent transparent rgba($color: #fff, $alpha: 0.8);
-                    left: 10px;
-                }
-            }
-            .btn-volume{
-                position: relative;
-                width: 30px;
-                height: 30px;
-                .volume{
-                    position: absolute;
-                    top: 3px;
-                    left: -7px;
-                    width: 10px;
-                    height: 22px;
-                    border: 2px solid rgba(255, 255, 255, 0.8);
-                    border-width: 9px 12px;
-                    border-color: transparent rgba(255, 255, 255, 0.8) transparent transparent;
-                    border-radius: 13px;
-                    &::after{
-                        display: block;
-                        content: '';
-                        width: 18px;
-                        height: 18px;
-                        border: 2px solid rgba(255, 255, 255, 0.8);
-                        border-color: transparent rgba(255, 255, 255, 0.8) transparent transparent;
-                        position: absolute;
-                        top: -9px;
-                        left: -5px;
-                        border-radius: 18px;
-                    }
-                }
-                .muted{
-                    display: block;
-                    content: '';
-                    width: 4px;
-                    height: 24px;
-                    background: rgba($color: #fff, $alpha: 0.8);
-                    border-radius: 4px;
-                    transform: rotate(135deg);
-                    position: absolute;
-                    top: 1px;
-                    left: 13px;
-                    background-clip: padding-box;
-                    border: 1px solid rgba($color: #898989, $alpha: 0.2);
-                }
-            }
-        }
-    }
-}
 .aplayer{
     .player{
         &__controls{
