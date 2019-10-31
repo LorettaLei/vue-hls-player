@@ -1,13 +1,11 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const entrys = {};
-const components = require('./components.json');
-Object.keys(components).forEach(item => {
-    entrys[item] = components[item];
-})
+const components = require('./components.json'); 
+
 const config = {
+    // mode: 'production',
     devtool: '#source-map',
-    entry: entrys,
+    entry: components,
     output: {
         filename: '[name].js',
         path: path.join(__dirname, 'lib'),
@@ -22,8 +20,14 @@ const config = {
           commonjs: 'hls.js',
           commonjs2: 'hls.js',
           root: 'Hls'
-        }
-    },
+        },
+        'vue':  {
+          amd: 'vue',
+          commonjs: 'vue',
+          commonjs2: 'vue',
+          root: 'Vue'
+        },
+      },
     module: {
         rules: [
             {

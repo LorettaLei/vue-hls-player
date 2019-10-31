@@ -2,8 +2,9 @@ const HTMLPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const config = {
+    mode: 'development',
     devtool: '#cheap-module-eval-source-map',
-    entry: "./src/index.js",
+    entry: "./example/index.js",
     module: {
         rules: [
             {
@@ -51,7 +52,7 @@ const config = {
         new VueLoaderPlugin(),
         new HTMLPlugin({
             filename: './index.html',
-            template: './src/index.html',
+            template: './example/index.html',
             inject: true,
             minify: {
                 removeComments: true,

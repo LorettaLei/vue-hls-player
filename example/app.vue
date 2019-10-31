@@ -41,7 +41,7 @@ export default {
 }
 </script>
 <style lang="scss">
-@import './styles/player.scss';
+// @import './styles/player.scss';
 .player{
     width: 400px;
     margin: 0 auto;

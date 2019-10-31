@@ -1,11 +1,11 @@
 {
   "name": "vue-hls-player",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "hls player,audio,video",
-  "main": "dist/vue-hls-player.js",
+  "main": "lib/vue-hls-player.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production --config webpack.config.js && webpack --mode production --config webpack.components.js",
+    "build": "webpack --mode production --config webpack.common.js && webpack --mode production --config webpack.components.js",
     "dev": "webpack-dev-server --mode development --config webpack.dev.js"
   },
   "keywords": [

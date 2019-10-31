@@ -1,16 +1,19 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
 const config = {
+    // mode: 'production',
     devtool: '#source-map',
-    entry: './src/player.js',
+    entry: './src/index.js',
     output: {
         filename: 'vue-hls-player.js',
         path: path.join(__dirname, 'lib'),
+        chunkFilename: '[id].js',
+        libraryExport: 'default',
         publicPath: '/lib/',
         // library: '',
-        libraryTarget: 'umd',
-        umdNamedDefine: true
+        library: 'VUEHLSPLAYER',
+        libraryTarget: 'commonjs2',
+        // umdNamedDefine: true
     },
     externals: {
         'hls.js': {
@@ -18,8 +21,14 @@ const config = {
           commonjs: 'hls.js',
           commonjs2: 'hls.js',
           root: 'Hls'
-        }
-    },
+        },
+        'vue':  {
+          amd: 'vue',
+          commonjs: 'vue',
+          commonjs2: 'vue',
+          root: 'Vue'
+        },
+      },
     module: {
         rules: [
             {
