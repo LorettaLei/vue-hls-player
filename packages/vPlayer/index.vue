@@ -2,15 +2,15 @@
     <div class="player vplayer">
         <video ref="media"></video>
         <div class="player__controls">
-            <div class="player__controls--btn">
-                <div class="btn-play" :class="{stop: !playing}" @click.stop="togglePlay()"></div>
+            <div class="player__controls--btn" @click.stop="togglePlay()">
+                <div class="btn-play" :class="{stop: !playing}"></div>
             </div>
-            <div class="player__controls--current">{{playedTime}}</div>
-            <progress-bar ref="progress" class="player__controls--progress" @changeProgress="onMediaChangeProgress" />
-            <div class="player__controls--durration">{{lengthTime}}</div>
-            <div class="player__controls--btn" @mouseenter="volumeBarShow=true" @mouseleave="volumeBarShow=false">
+            <div class="player__controls--current" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('current')!='-1'">{{playedTime}}</div>
+            <progress-bar ref="progress" class="player__controls--progress" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('progress')!='-1'" @changeProgress="onMediaChangeProgress" />
+            <div class="player__controls--durration" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('durration')!='-1'">{{lengthTime}}</div>
+            <div class="player__controls--btn" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('volume')!='-1'" @mouseenter="volumeBarShow=true" @mouseleave="volumeBarShow=false">
                 <volume-bar @changeVolume="onMediaVolumeChange" v-model="volume" v-if="volumeBarShow" />
-                <div class="btn-volume" @click="muted = !muted">
+                <div class="btn-volume" @click="volume = volume==0 ? 1 : 0">
                     <div class="volume"></div>
                     <div class="muted" v-if="muted"></div>
                 </div>
@@ -23,7 +23,7 @@ import BASE from '../../src/utils/base'
 import progressBar from '../components/progress-bar.vue'
 import volumeBar from '../components/volume-bar.vue'
 export default {
-    name: "vplayer",
+    name: "Vplayer",
     components: { progressBar,volumeBar },
     props: {
         playerOptions: {
@@ -37,9 +37,8 @@ export default {
                     isLoop: false,
                     poster: '',
                     playsinline: true,
-                    title: '',
                     crossOrigin: false,
-                    controls: 'progress,timer'
+                    controls: 'progress,current,durration,volume'
                 }
             }
         }
@@ -53,24 +52,23 @@ export default {
             playedTime: '00:00', // 当前播放时长
             lengthTime: '00:00', //音频长度
             volume: 1,
-            muted: false,
             volumeBarShow: false
         }
     },
     computed:{
         media(){
             return this.$refs.media
+        },
+        muted(){
+            return this.volume===0;
         }
     },
     mounted(){
-        console.log(2,new Date().getTime())
         this.initMedia();
     },
     methods: {
         initMedia(){
-            console.log(this.media.mediaGroup)
             this.media.preload = this.playerOptions.preload||true;
-            this.media.title = this.playerOptions.title||'vue音视频播放器';
             this.media.autoplay = this.playerOptions.autoplay||false;
             this.media.poster = this.playerOptions.poster||'';
             if(this.playerOptions.playsinline){
@@ -116,7 +114,6 @@ export default {
             }else{
                 this.media.src = this.playerOptions.src
             }
-            console.log(this.media.crossOrigin,this.media.mediaGroup)
             this.media.addEventListener('play', this.onMediaPlay)
             this.media.addEventListener('playing', this.onMediaPlay)
             this.media.addEventListener('pause', this.onMediaPause)
@@ -163,13 +160,7 @@ export default {
             this.$refs.progress.initProgress(this.loadedLength,this.playedLength,this.dataLength)
         },
         onMediaVolumeChange(v){
-          console.log(v);
           this.volume = v;
-          if(v==0){
-              this.muted = true;
-          }else{
-              this.muted = false;
-          }
           this.media.volume = v;  
         },
         onMediaChangeProgress(v){
@@ -184,6 +175,103 @@ export default {
 }
 </script>
 <style lang="scss">
+.player{
+    *{
+        box-sizing: border-box;
+    }
+    &__controls{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &--progress{
+            flex: 1;
+            margin: 0 8px;
+        }
+        &--current,&--durration{
+            width: 10%;
+            min-width: 40px;
+            font-size: 14px;
+            color: rgba($color: #fff, $alpha: 0.8);
+            line-height: 1;
+            margin: 0 8px;
+            user-select:none;
+        }
+        &--current{
+            text-align: center;
+        }
+        &--durration{
+            text-align: center;
+        }
+        &--btn {
+            margin: 0 8px;
+            width: 30px;
+            height: 30px;
+            border-radius: 25px;
+            border: 1px solid rgba($color: #fff, $alpha: 0.8);
+            position: relative;
+            cursor: pointer;
+            .btn-play {
+                width: 10px;
+                height: 14px;
+                border: 2px solid rgba($color: #fff, $alpha: 0.8);
+                border-width: 0 2px;
+                position: absolute;
+                top: 7px;
+                left: 9px;
+                &.stop {
+                    width: 0;
+                    height: 0;
+                    border: 2px solid rgba($color: #fff, $alpha: 0.8);
+                    border-width: 7px 10px;
+                    border-color: transparent transparent transparent rgba($color: #fff, $alpha: 0.8);
+                    left: 10px;
+                }
+            }
+            .btn-volume{
+                position: relative;
+                width: 30px;
+                height: 30px;
+                .volume{
+                    position: absolute;
+                    top: 3px;
+                    left: -7px;
+                    width: 10px;
+                    height: 22px;
+                    border: 2px solid rgba(255, 255, 255, 0.8);
+                    border-width: 9px 12px;
+                    border-color: transparent rgba(255, 255, 255, 0.8) transparent transparent;
+                    border-radius: 13px;
+                    &::after{
+                        display: block;
+                        content: '';
+                        width: 18px;
+                        height: 18px;
+                        border: 2px solid rgba(255, 255, 255, 0.8);
+                        border-color: transparent rgba(255, 255, 255, 0.8) transparent transparent;
+                        position: absolute;
+                        top: -9px;
+                        left: -5px;
+                        border-radius: 18px;
+                    }
+                }
+                .muted{
+                    display: block;
+                    content: '';
+                    width: 4px;
+                    height: 24px;
+                    background: rgba($color: #fff, $alpha: 0.8);
+                    border-radius: 4px;
+                    transform: rotate(135deg);
+                    position: absolute;
+                    top: 1px;
+                    left: 13px;
+                    background-clip: padding-box;
+                    border: 1px solid rgba($color: #898989, $alpha: 0.2);
+                }
+            }
+        }
+    }
+}
 .vplayer{
     position: relative;
     font-size: 0;
@@ -198,7 +286,7 @@ export default {
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 5px 10px;
+            padding: 5px 0;
             background: rgba($color: #000000, $alpha: 0.6)
         }
     }

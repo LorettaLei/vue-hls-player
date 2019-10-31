@@ -1,15 +1,15 @@
 <template>
     <div class="app">
         <h2>vue音视频播放器</h2>
-        <aPlayer :playerOptions = "aOption" />
-        <vPlayer :playerOptions = "vOption" />
+        <aplayer :playerOptions = "aOption" />
+        <vplayer :playerOptions = "vOption" />
     </div>
 </template>
 <script>
-// import aPlayer from './components/aPlayer.vue'
-// import vPlayer from './components/vPlayer.vue'
+// import { aplayer } from '../lib/vue-hls-player'
+// import vplayer from '../lib/vPlayer'
 export default {
-    // components: { aPlayer, vPlayer },
+    // components: { aplayer, vplayer },
     data(){
         return {
             aOption: {
@@ -21,7 +21,7 @@ export default {
                 poster: 'https://oimdztrab.qnssl.com/Frp4SyVe5PosdkUKRaE-krjK7B5z',
                 title: '音频播放器',
                 description: '',
-                controls: 'progress,timer'
+                controls: 'progress,durration'
             },
             vOption: {
                 type: "application/x-mpegURL",
@@ -31,12 +31,10 @@ export default {
                 isLoop: false,
                 poster: 'https://oimdztrab.qnssl.com/FlRHT5-abdwNVXyBb-sYzUPIihoe',
                 playsinline: true,
-                title: '视频播放器'
+                title: '视频播放器',
+                controls: 'progress,durration,volume'
             },
         }
-    },
-    created(){
-        // console.log(vueHlsPlayer)
     }
 }
 </script>

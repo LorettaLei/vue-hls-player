@@ -32,7 +32,6 @@ export default {
             this.length = len;
         },
         changeProgress(e,type){
-            // console.log(e.clientX,e.pageX,e.offsetX,e.target,this.$refs.mediaLength.clientWidth)
             if(type){
                 this.$emit('changeProgress',parseInt(e.offsetX*100/this.$refs.mediaLength.offsetWidth)/100);
             }else if(this.mousedownnow){
@@ -40,7 +39,6 @@ export default {
             }
         },
         pressBarStart(e){
-            console.log(2)
             this.mousedownnow = true;
         }
     }

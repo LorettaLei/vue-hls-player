@@ -1,0 +1,15 @@
+  
+{
+    "env": {
+      "utils": {
+        "plugins": [
+          ["module-resolver", {
+            "root": ["vue-hls-player"],
+            "alias": {
+              "vue-hls-player/src": "vue-hls-player/lib"
+            }
+          }]
+        ]
+      }
+    }
+  }

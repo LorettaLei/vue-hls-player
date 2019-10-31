@@ -5,9 +5,9 @@
             <div class="player__controls--btn" @click.stop="togglePlay()">
                 <div class="btn-play" :class="{stop: !playing}"></div>
             </div>
-            <div class="player__controls--current">{{playedTime}}</div>
-            <progress-bar ref="progress" class="player__controls--progress" @changeProgress="onMediaChangeProgress" />
-            <div class="player__controls--durration">{{lengthTime}}</div>
+            <div class="player__controls--current" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('current')!='-1'">{{playedTime}}</div>
+            <progress-bar ref="progress" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('progress')!='-1'" class="player__controls--progress" @changeProgress="onMediaChangeProgress" />
+            <div class="player__controls--durration" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('durration')!='-1'">{{lengthTime}}</div>
         </div>
     </div>
 </template>
@@ -15,7 +15,7 @@
 import BASE from '../../src/utils/base'
 import progressBar from '../components/progress-bar.vue'
 export default {
-    name: "aplayer",
+    name: "Aplayer",
     components: { progressBar, },
     props: {
         playerOptions: {
@@ -27,10 +27,7 @@ export default {
                     preload: true,
                     autoplay: true,
                     isLoop: false,
-                    poster: '',
-                    playsinline: true,
-                    title: '',
-                    controls: 'progress,timer'
+                    controls: 'progress,current,durration'
                 }
             }
         }
@@ -60,7 +57,6 @@ export default {
     methods: {
         initMedia(){
             this.media.preload = this.playerOptions.preload||true;
-            this.media.title = this.playerOptions.title||'vue音视频播放器';
             this.media.autoplay = this.playerOptions.autoplay||false;
             if(this.playerOptions.type && (this.playerOptions.type=='application/x-mpegURL'||this.playerOptions.type=='application/vnd.apple.mpegURL')){
               try {
@@ -150,6 +146,103 @@ export default {
 }
 </script>
 <style lang="scss">
+.player{
+    *{
+        box-sizing: border-box;
+    }
+    &__controls{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &--progress{
+            flex: 1;
+            margin: 0 8px;
+        }
+        &--current,&--durration{
+            width: 10%;
+            min-width: 40px;
+            font-size: 14px;
+            color: rgba($color: #fff, $alpha: 0.8);
+            line-height: 1;
+            margin: 0 8px;
+            user-select:none;
+        }
+        &--current{
+            text-align: center;
+        }
+        &--durration{
+            text-align: center;
+        }
+        &--btn {
+            margin: 0 8px;
+            width: 30px;
+            height: 30px;
+            border-radius: 25px;
+            border: 1px solid rgba($color: #fff, $alpha: 0.8);
+            position: relative;
+            cursor: pointer;
+            .btn-play {
+                width: 10px;
+                height: 14px;
+                border: 2px solid rgba($color: #fff, $alpha: 0.8);
+                border-width: 0 2px;
+                position: absolute;
+                top: 7px;
+                left: 9px;
+                &.stop {
+                    width: 0;
+                    height: 0;
+                    border: 2px solid rgba($color: #fff, $alpha: 0.8);
+                    border-width: 7px 10px;
+                    border-color: transparent transparent transparent rgba($color: #fff, $alpha: 0.8);
+                    left: 10px;
+                }
+            }
+            .btn-volume{
+                position: relative;
+                width: 30px;
+                height: 30px;
+                .volume{
+                    position: absolute;
+                    top: 3px;
+                    left: -7px;
+                    width: 10px;
+                    height: 22px;
+                    border: 2px solid rgba(255, 255, 255, 0.8);
+                    border-width: 9px 12px;
+                    border-color: transparent rgba(255, 255, 255, 0.8) transparent transparent;
+                    border-radius: 13px;
+                    &::after{
+                        display: block;
+                        content: '';
+                        width: 18px;
+                        height: 18px;
+                        border: 2px solid rgba(255, 255, 255, 0.8);
+                        border-color: transparent rgba(255, 255, 255, 0.8) transparent transparent;
+                        position: absolute;
+                        top: -9px;
+                        left: -5px;
+                        border-radius: 18px;
+                    }
+                }
+                .muted{
+                    display: block;
+                    content: '';
+                    width: 4px;
+                    height: 24px;
+                    background: rgba($color: #fff, $alpha: 0.8);
+                    border-radius: 4px;
+                    transform: rotate(135deg);
+                    position: absolute;
+                    top: 1px;
+                    left: 13px;
+                    background-clip: padding-box;
+                    border: 1px solid rgba($color: #898989, $alpha: 0.2);
+                }
+            }
+        }
+    }
+}
 .aplayer{
     .player{
         &__controls{

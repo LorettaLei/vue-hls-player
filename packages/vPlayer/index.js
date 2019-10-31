@@ -1,7 +1,7 @@
-import vplayer from './index.vue'
+import Vplayer from './index.vue'
   
-vplayer.install = function(Vue) {
-  Vue.component(vplayer.name, vplayer);
+Vplayer.install = function(Vue) {
+  Vue.component(Vplayer.name, Vplayer);
 };
 
-export default vplayer;
+export default Vplayer;

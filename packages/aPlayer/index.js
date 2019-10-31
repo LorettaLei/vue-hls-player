@@ -1,7 +1,7 @@
-import aplayer from './index.vue'
+import Aplayer from './index.vue'
   
-aplayer.install = function(Vue) {
-  Vue.component(aplayer.name, aplayer);
+Aplayer.install = function(Vue) {
+  Vue.component(Aplayer.name, Aplayer);
 };
 
-export default aplayer;
+export default Aplayer;

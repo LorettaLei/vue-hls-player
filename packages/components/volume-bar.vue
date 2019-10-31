@@ -35,7 +35,6 @@ export default {
         setVolume(e,type){
             let volume = parseInt(e.offsetY*100/this.$refs.volume.offsetHeight)/100;
             volume = volume < 0 ? 0 : volume > 1 ? 1 : volume;
-            // console.log(e.clientY,e.pageY,e.offsetY,e.target,this.$refs.volume.offsetHeight)
             if(type){
                 this.$emit('changeVolume',1 - volume);
                 e.stopPropagation();
