@@ -7,7 +7,7 @@ npm install vue-player
 ## 全局使用
 ```
 //入口index.js
-import player from '../lib/vue-hls-player'
+import player from 'vue-hls-player'
 Vue.use(player)
 
 //test.vue

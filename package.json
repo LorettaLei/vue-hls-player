@@ -1,6 +1,6 @@
 {
   "name": "vue-hls-player",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "vue hls player,audio,video",
   "main": "lib/vue-hls-player.js",
   "scripts": {
