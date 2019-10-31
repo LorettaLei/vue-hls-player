@@ -1,7 +1,7 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const config = {
-    // mode: 'production',
+    mode: 'production',
     devtool: '#source-map',
     entry: './src/index.js',
     output: {

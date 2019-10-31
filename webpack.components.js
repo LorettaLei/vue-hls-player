@@ -3,7 +3,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const components = require('./components.json'); 
 
 const config = {
-    // mode: 'production',
+    mode: 'production',
     devtool: '#source-map',
     entry: components,
     output: {
