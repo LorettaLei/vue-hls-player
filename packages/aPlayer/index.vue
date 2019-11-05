@@ -7,7 +7,7 @@
             </div>
             <div class="player__controls--current" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('current')!='-1'">{{playedTime}}</div>
             <progress-bar ref="progress" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('progress')!='-1'" class="player__controls--progress" @changeProgress="onMediaChangeProgress" />
-            <div class="player__controls--durration" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('durration')!='-1'">{{lengthTime}}</div>
+            <div class="player__controls--durration" :class="{error:error}" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('durration')!='-1'">{{error ? 'error!' : lengthTime}}</div>
         </div>
     </div>
 </template>
@@ -41,7 +41,8 @@ export default {
             playedTime: '00:00', // 当前播放时长
             lengthTime: '00:00', //音频长度
             volume: 0,
-            muted: true
+            muted: true,
+            error: false
         }
     },
     computed:{
@@ -100,6 +101,10 @@ export default {
             this.media.addEventListener('seeked', this.onMediaSeeking)
             this.media.addEventListener('timeupdate', this.onMediaSeeking)
             this.media.addEventListener('ended', this.onMediaEnded)
+            this.media.addEventListener('error', this.onMediaError)
+        },
+        onMediaError(){
+            this.error = true;
         },
         togglePlay(){
             if(this.playing){
@@ -109,6 +114,7 @@ export default {
             }
         },
         onMediaPlay(){
+            this.error = false;
             this.playing = true
         },
         onMediaPause(){
@@ -248,6 +254,9 @@ export default {
         &__controls{
             &--current,&--durration{
                 color: rgba($color: #898989, $alpha: 0.8);
+            }
+            &--durration.error{
+                color: red;
             }
             &--btn{
                 border: 1px solid rgba($color: #898989, $alpha: 0.8);

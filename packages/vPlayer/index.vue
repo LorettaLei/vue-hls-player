@@ -7,7 +7,7 @@
             </div>
             <div class="player__controls--current" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('current')!='-1'">{{playedTime}}</div>
             <progress-bar ref="progress" class="player__controls--progress" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('progress')!='-1'" @changeProgress="onMediaChangeProgress" />
-            <div class="player__controls--durration" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('durration')!='-1'">{{lengthTime}}</div>
+            <div class="player__controls--durration" :class="{error:error}" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('durration')!='-1'">{{error ? 'error!' : lengthTime}}</div>
             <div class="player__controls--btn" v-if="playerOptions.controls===undefined || playerOptions.controls.indexOf('volume')!='-1'" @mouseenter="volumeBarShow=true" @mouseleave="volumeBarShow=false">
                 <volume-bar @changeVolume="onMediaVolumeChange" v-model="volume" v-if="volumeBarShow" />
                 <div class="btn-volume" @click="volume = volume==0 ? 1 : 0">
@@ -52,7 +52,8 @@ export default {
             playedTime: '00:00', // 当前播放时长
             lengthTime: '00:00', //音频长度
             volume: 1,
-            volumeBarShow: false
+            volumeBarShow: false,
+            error: false
         }
     },
     computed:{
@@ -125,6 +126,10 @@ export default {
             this.media.addEventListener('timeupdate', this.onMediaSeeking)
             this.media.addEventListener('volumechange', this.onMediaVolumeChange(this.media.volume))
             this.media.addEventListener('ended', this.onMediaEnded)
+            this.media.addEventListener('error', this.onMediaError)
+        },
+        onMediaError(){
+            this.error = true;
         },
         togglePlay(){
             if(this.playing){
@@ -134,7 +139,8 @@ export default {
             }
         },
         onMediaPlay(){
-            this.playing = true
+            this.error = false;
+            this.playing = true;
         },
         onMediaPause(){
             this.playing = false
@@ -201,6 +207,9 @@ export default {
         }
         &--durration{
             text-align: center;
+            &.error{
+                color: red;
+            }
         }
         &--btn {
             margin: 0 8px;
