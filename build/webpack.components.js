@@ -1,6 +1,6 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const components = require('./components.json'); 
+const components = require('../components.json'); 
 
 const config = {
     mode: 'production',

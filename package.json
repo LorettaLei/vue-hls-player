@@ -5,8 +5,8 @@
   "main": "lib/vue-hls-player.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.common.js && webpack --config webpack.components.js",
-    "dev": "webpack-dev-server --mode development --config webpack.dev.js"
+    "build": "webpack --config build/webpack.common.js && webpack --config build/webpack.components.js",
+    "dev": "webpack-dev-server --config build/webpack.dev.js"
   },
   "keywords": [
     "hls player",

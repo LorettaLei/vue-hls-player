@@ -56,7 +56,7 @@ vOption:{
     autoplay: true,//是否自动播放（兼容性不太好），默认为false
     isLoop: false,//是否循环，默认不循环
     poster: 'https://oimdztrab.qnssl.com/Frp4SyVe5PosdkUKRaE-krjK7B5z', //封面，仅视频有
-    controls: 'progress,current,durration,volume', //显示的控件,volume只有视频有，没有配置controls项则全部显示。
+    controls: 'progress,current,durration,volume', //显示的控件,volume只有视频有，没有配置controls项则全部显示。progress:进度条；current:已播放时长；durration：音视频长度；volume：音量
     crossOrigin: false //设置视频的 CORS 设置。
 }
 ```
