@@ -8,8 +8,8 @@ const config = {
     entry: components,
     output: {
         filename: '[name].js',
-        path: path.join(__dirname, 'lib'),
-        publicPath: '/lib/',
+        path: path.join(__dirname, '../lib'),
+        publicPath: '../lib/',
         // library: '',
         libraryTarget: 'umd',
         umdNamedDefine: true

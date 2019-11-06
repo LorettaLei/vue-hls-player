@@ -6,10 +6,10 @@ const config = {
     entry: './src/index.js',
     output: {
         filename: 'vue-hls-player.js',
-        path: path.join(__dirname, 'lib'),
+        path: path.join(__dirname, '../lib'),
         chunkFilename: '[id].js',
         libraryExport: 'default',
-        publicPath: '/lib/',
+        publicPath: '../lib/',
         // library: '',
         library: 'VUEHLSPLAYER',
         libraryTarget: 'commonjs2',
