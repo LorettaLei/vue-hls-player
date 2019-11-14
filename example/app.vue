@@ -1,8 +1,8 @@
 <template>
     <div class="app">
         <h2>vue音视频播放器</h2>
-        <aplayer :playerOptions = "aOption" />
-        <vplayer :playerOptions = "vOption" />
+        <aplayer :playerOptions = "aOption" @onplay="play" @onpause="pause" />
+        <vplayer :playerOptions = "vOption" @onplay="play" @onpause="pause" />
     </div>
 </template>
 <script>
@@ -34,6 +34,14 @@ export default {
                 title: '视频播放器',
                 controls: 'progress,durration,volume'
             },
+        }
+    },
+    methods:{
+        play(e){
+            alert('play now')
+        },
+        pause(e){
+            alert('pause now')
         }
     }
 }

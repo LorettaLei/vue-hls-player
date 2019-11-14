@@ -92,16 +92,17 @@ export default {
             }else{
                 this.media.src = this.playerOptions.src
             }
-            this.media.addEventListener('play', this.onMediaPlay)
-            this.media.addEventListener('pause', this.onMediaPause)
-            this.media.addEventListener('abort', this.onMediaPause)
-            this.media.addEventListener('progress', this.onMediaProgress)
-            this.media.addEventListener('durationchange', this.onMediaDurationChange)
-            this.media.addEventListener('seeking', this.onMediaSeeking)
-            this.media.addEventListener('seeked', this.onMediaSeeking)
-            this.media.addEventListener('timeupdate', this.onMediaSeeking)
-            this.media.addEventListener('ended', this.onMediaEnded)
-            this.media.addEventListener('error', this.onMediaError)
+            this.media.addEventListener('play', (e)=>{this.onMediaPlay();this.$emit('onplay',e);})
+            this.media.addEventListener('playing', (e)=>{this.onMediaPlay();this.$emit('onplaying',e);})
+            this.media.addEventListener('pause',  (e)=>{this.onMediaPause();this.$emit('onpause',e);})
+            this.media.addEventListener('abort', (e)=>{this.onMediaPause();this.$emit('onabort',e);})
+            this.media.addEventListener('progress', (e)=>{this.onMediaProgress();this.$emit('onprogress',e);})
+            this.media.addEventListener('durationchange', (e)=>{this.onMediaDurationChange();this.$emit('ondurationchange',e);})
+            this.media.addEventListener('seeking', (e)=>{this.onMediaSeeking();this.$emit('onseeking',e);})
+            this.media.addEventListener('seeked', (e)=>{this.onMediaSeeking();this.$emit('onseeked',e);})
+            this.media.addEventListener('timeupdate', (e)=>{this.onMediaSeeking();this.$emit('ontimeupdate',e);})
+            this.media.addEventListener('ended', (e)=>{this.onMediaEnded();this.$emit('onended',e);})
+            this.media.addEventListener('error', (e)=>{this.onMediaError();this.$emit('onerror',e);})
         },
         onMediaError(){
             this.error = true;
